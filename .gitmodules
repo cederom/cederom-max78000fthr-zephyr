@@ -1,3 +1,3 @@
 [submodule "MAX78000_SDK"]
-	path = MAX78000_SDK
+	path = submodules/MAX78000_SDK
 	url = https://github.com/MaximIntegratedAI/MAX78000_SDK.git
