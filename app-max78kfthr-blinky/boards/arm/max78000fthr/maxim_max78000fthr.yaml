@@ -1,0 +1,14 @@
+identifier: maxim_max78000fthr
+name: MAXIM_MAX78000FTHR
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 128
+flash: 512
+supported:
+  - gpio
+  - counter
+  - pwm

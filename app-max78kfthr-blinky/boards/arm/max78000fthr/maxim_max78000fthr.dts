@@ -1,0 +1,95 @@
+/dts-v1/;
+#include <maxim/max78000.dtsi>
+
+/ {
+	model = "Maxim MAX78000FTHR";
+	compatible = "maxim,max78000fthr";
+
+	chosen {
+		zephyr,console = &uart0;
+		zephyr,shell-uart = &uart0;
+		zephyr,uart-mcumgr = &uart0;
+		zephyr,bt-mon-uart = &uart0;
+		zephyr,bt-c2h-uart = &uart0;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		led0: led_0 {
+			gpios = <&gpio0 XXX GPIO_ACTIVE_LOW>;
+			label = "Green LED";
+		};
+		led1: led_1 {
+			gpios = <&gpio0 XXX GPIO_ACTIVE_LOW>;
+			label = "LED";
+		};
+	};
+
+	pwmleds {
+		compatible = "pwm-leds";
+		pwm_led0: pwm_led_0 {
+			pwms = <&pwm0 XXX>;
+		};
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+		button0: button_0 {
+			gpios = <&gpio0 XXX (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 0";
+		};
+		button1: button_1 {
+			gpios = <&gpio0 XXX (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 1";
+		};
+		button2: button_2 {
+			gpios = <&gpio0 XXX (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 2";
+		};
+		button3: button_3 {
+			gpios = <&gpio0 XXX (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 3";
+		};
+	};
+
+&uart0 {
+	status = "okay";
+	compatible = "maxim,max78000";
+	current-speed = <115200>;
+	tx-pin = <XXX>;
+	rx-pin = <XXX>;
+	rts-pin = <XXX>;
+	cts-pin = <XXX>;
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 0xc000>;
+		};
+		slot0_partition: partition@c000 {
+			label = "image-0";
+			reg = <0x0000C000 0x32000>;
+		};
+		slot1_partition: partition@3e000 {
+			label = "image-1";
+			reg = <0x0003E000 0x32000>;
+		};
+		scratch_partition: partition@70000 {
+			label = "image-scratch";
+			reg = <0x00070000 0xa000>;
+		};
+		storage_partition: partition@7a000 {
+			label = "storage";
+			reg = <0x0007a000 0x00006000>;
+		};
+	};
+};

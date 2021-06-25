@@ -1,0 +1,8 @@
+app-max78000fthr-blinky:
+  description: Zephyr based Blinky application for MAX78000FTHR AI DevKit.
+  name: app-max78000fthr-blinky
+common:
+  tags: maxim max78000 ai
+tests:
+  platform_allow: max78000fthr
+
