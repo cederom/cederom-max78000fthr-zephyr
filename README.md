@@ -2,7 +2,11 @@
 
 <p align="center" width="100%"><img src="gfx/cederom-max78000fthr-zephyr.jpg" width="50%"></p>
 
-This project is an experimental port of ZEPHYR RTOS [zephyr] to MAX78000's [max78k] MAX78000FTHR AI Development Kit [max78kfthr] that consists of ARM Cortex-M4F (100MHz) and RISC-V (60MHz) co-processor with Hardware Neural Networks capability as part of the Elektor Magazine [elektor] and Maxim AI Design Contest. Porting Zephyr, my favourite RTOS, opens up whole world of possibilities for this kind of AI MCUs and Boards. Development is done on FreeBSD Unix [freebsd] therefore full Open-Source compatibility is guranteed. Due Zephyr requirements Apache 2.0 license applies.
+This project is an experimental Open-Source platform independent port of ZEPHYR RTOS [zephyr] to MAX78000's [max78k] MAX78000FTHR AI Development Kit [max78kfthr] that consists of ARM Cortex-M4F (100MHz) and RISC-V (60MHz) co-processor with Hardware Neural Networks capability as part of the Elektor Magazine [elektor] and Maxim AI Design Contest. Porting Zephyr, my favourite RTOS, opens up whole world of possibilities for this kind of AI MCUs and Boards. Development is done on FreeBSD Unix [freebsd] therefore full Open-Source compatibility is verified, no vendor specific parts shall be used (i.e. Windows-only Maxim's Micros SDK). Due Zephyr requirements Apache 2.0 license applies (may shift to MIT if Elektor insists).
+
+The MAX78000 is a new generation of AI microcontrollers built to enable the execution of neural networks at ultra-low power and live at the edge of the IoT. This product combines the most energy-efficient AI processing with Maxim Integrated's proven ultra-low power microcontrollers. The hardware-based CNN accelerator enables battery-powered applications to execute AI inferences while spending only microjoules of energy. The MAX78000 features an Atarm® Cortex®-M4 with FPU microcontroller for efficient system control with an ultra-low power deep neural network accelerator. A RISC-V core is also integrated and can execute application and control codes as well as drive the CNN accelerator. Please take a look at [local project documents](doc/) and product page [max78k] and its application notes site [max_appnote7417].
+
+<p align="center" width="100%"><img src="gfx/7417fig01.jpg" width="50%"></p>
 
 
 ## MAX78000FTHR
@@ -128,6 +132,7 @@ pyOCD does not seem to have support for MAX78000 yet even with CMSIS Pack Manage
 * [west] https://docs.zephyrproject.org/latest/guides/west/index.html
 * [daplink] https://github.com/ARMmbed/DAPLink
 * [cpm] https://github.com/pyocd/cmsis-pack-manager
+* [max_appnote7417] https://www.maximintegrated.com/en/design/technical-documents/app-notes/7/7417.html
 
 
 ---
