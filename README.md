@@ -1,0 +1,2 @@
+# max78000fthr-zephyr
+ZEPHYR RTOS on MAX78000FTHR
