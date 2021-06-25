@@ -49,13 +49,43 @@ The MAX78000 is a new generation of AI microcontrollers built to enable the exec
   * pyOCD upstream (using `0.30.4.dev38+dirty`) does not recognise Board ID - debug and flash on generic `cortex_m` does not work out of the box.
   * CMSIS Pack Manager does not contain MAX78000 MCU.
 * [ ] Create Zephyr External Application code (using west [west] workspace on this repo).
+  * Initial skeleton created.
 * [ ] Create Zephyr SOC configuration for MAX78000 using DTS.
+* [ ] Create Zephyr HAL rotuines for MAX78K family.
+  * This may take several months to accomplish!
+  * See how much of the MAX78000SDK can me re-used here.
 * [ ] Create Zephyr Board configuration for MAX78000FTHR DevKit using DTS.
 * [ ] Create Zephyr Blinky example.
 * [ ] Build, Flash, Verify Zephyr Blinky on MAX78000FTHR DevKit.
 
 
 ## WORKBENCH
+
+## Zephyr + Python Environment
+
+In order to work with Zephyr you need some Python utilities (i.e. `west` that manages Zephyr projects). It is recommended to use local Python Virtual Environment that you can easily modify without even touching your OS components. Then, from within that Python Venv, you need to fetch and update Zephyr SDK. This project is a standalone Zephyr Workspace that will fetch all components into its own location.
+
+Special `zvenvdsk.sh` script was created to make your life easier, it will install itself in local home location and add itself to `PATH` so you can call is easily later on. In order to setup Python Venv call:
+```
+./zvenvsdk.sh init
+```
+
+In order to fetch and update Zephyr SDK jump into the Python Venv and call west to update stuff:
+```
+./zvenvsdk.sh venv
+west update
+exit
+```
+
+From now on you can just call `zvenvsdk.sh` from the top project directory - script is now in your `PATH`, it will first launch Python Venv, then Zephyr environment setup scrips. Note that you may want to modify the script content to match some routines and locations. For instance you can adjust the `flash` parameter execution to match your needs, as well as `uart` parameter for easy serial terminal call.
+
+In perfect world, when above setup was completed, as well when all other Zephyr + Maxim components are ready, you should be able to build the firmware with:
+```
+zvenvsdk.sh
+cd app-max78000fthr-blinky
+west build
+west flash
+``` 
 
 ### Flash and Debug
 
