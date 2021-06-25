@@ -39,6 +39,7 @@ The MAX78000 is a new generation of AI microcontrollers built to enable the exec
 
 ## TODO
 
+* [ ] Find ready to use example projects to have a reference point for next steps.
 * [ ] Find a way to use pyOCD  to flash the MCU/Board.
   * MAX78000FTHR seems to have onboard DAPLink probe [daplink] with ARM Cortex-M4F Target attached.
   * pyOCD does not recognise Board ID - may indicate problems with flashing.
@@ -65,31 +66,56 @@ pyOCD connects to `DAPLink CMSIS-DAP`:
   0   ARM DAPLink CMSIS-DAP   04440001f7cdc1c400000000000000000000000097969906
 ```
 
-pyOCD can Debug Target ARM MCU. However Board ID is unknown that means Debug may be available but Flashing may not work:
+In theory pyOCD can Debug Target as generic ARM Cortex-M MCU. However Board ID is unknown that means Debug and Flashing may be unreliable:
 
 ```
 (venv37zephyr) pyocd gdb
-0000722:WARNING:mbed_board:Board ID 0444 is not recognized, using generic cortex_m target.
-0000722:WARNING:board:Generic 'cortex_m' target type is selected by default; is this intentional? You will be able to debug most devices, but not program  flash. To set the target type use the '--target' argument or 'target_override' option. Use 'pyocd list --targets' to see available targets types.
-0000723:INFO:board:Target type is cortex_m
-0000782:WARNING:pyusb_backend:USB Kernel Driver Detach Failed ([None] b'Unknown error'). Attached driver may interfere with pyOCD operations.
-0000842:INFO:dap:DP IDR = 0x2ba01477 (v1 rev2)
-0000861:INFO:ap:AHB-AP#0 IDR = 0x24770011 (AHB-AP var1 rev2)
-0000889:INFO:rom_table:AHB-AP#0 Class 0x1 ROM table #0 @ 0xe00ff000 (designer=14b part=127)
-0000899:INFO:rom_table:[0]<e000e000:SCS-M4 class=14 designer=43b part=00c>
-0000906:INFO:rom_table:[1]<e0001000:DWT class=14 designer=43b part=002>
-0000913:INFO:rom_table:[2]<e0002000:FPB class=14 designer=43b part=003>
-0000917:INFO:cortex_m:CPU core #0 is Cortex-M4 r0p1
-0000929:INFO:cortex_m:FPU present: FPv4-SP-D16-M
-0000936:INFO:dwt:4 hardware watchpoints
-0000941:INFO:fpb:6 hardware breakpoints, 4 literal comparators
+0000730:WARNING:mbed_board:Board ID 0444 is not recognized, using generic cortex_m target.
+0000731:WARNING:board:Generic 'cortex_m' target type is selected by default; is this intentional? You will be able to debug most devices, but not program  flash. To set the target type use the '--target' argument or 'target_override' option. Use 'pyocd list --targets' to see available targets types.
+0000731:INFO:board:Target type is cortex_m
+0000792:WARNING:pyusb_backend:USB Kernel Driver Detach Failed ([None] b'Unknown error'). Attached driver may interfere with pyOCD operations.
+0000852:INFO:dap:DP IDR = 0x2ba01477 (v1 rev2)
+0000873:INFO:ap:AHB-AP#0 IDR = 0x24770011 (AHB-AP var1 rev2)
+0000903:INFO:rom_table:AHB-AP#0 Class 0x1 ROM table #0 @ 0xe00ff000 (designer=14b part=127)
+0000913:INFO:rom_table:[0]<e000e000:SCS-M4 class=14 designer=43b part=00c>
+0000920:INFO:rom_table:[1]<e0001000:DWT class=14 designer=43b part=002>
+0000927:INFO:rom_table:[2]<e0002000:FPB class=14 designer=43b part=003>
+0000931:INFO:cortex_m:CPU core #0 is Cortex-M4 r0p1
+0000944:INFO:cortex_m:FPU present: FPv4-SP-D16-M
+0000952:INFO:dwt:4 hardware watchpoints
+0000957:INFO:fpb:6 hardware breakpoints, 4 literal comparators
+0000977:INFO:server:Semihost server started on port 4444 (core 0)
+0001159:INFO:gdbserver:GDB server started on port 3333 (core 0)
+0005422:INFO:gdbserver:Client connected to port 3333!
 ```
 
-pyOCD does not seem to have support for MAX78000 yet even with CMSIS Pack Manager [cpm]:
+On the GDB side:
+
+```
+(venv37zephyr) arm-none-eabi-gdb
+GNU gdb (GNU Arm Embedded Toolchain) 10.1.90.20201028-git
+(...)
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+(gdb) target remote localhost:3333
+Remote debugging using localhost:3333
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x10000526 in ?? ()
+(gdb) monitor reset halt
+
+Ignoring packet error, continuing...
+Ignoring packet error, continuing...
+Ignoring packet error, continuing...
+```
+
+pyOCD upstream does not seem to have support for MAX78000 yet even with CMSIS Pack Manager [cpm]:
 
 ```
 (venv37zephyr) pyocd pack update
-...
+(...)
+
 (venv37zephyr) pyocd pack find max
   Part              Vendor   Pack          Version   Installed
 ----------------------------------------------------------------
