@@ -39,10 +39,14 @@ The MAX78000 is a new generation of AI microcontrollers built to enable the exec
 
 ## TODO
 
-* [ ] Find ready to use example projects to have a reference point for next steps.
+* [X] Find ready to use working example projects to have a reference point for next steps.
+  * https://github.com/MaximIntegratedAI
+  * https://github.com/MaximIntegratedAI/MAX78000_SDK
+  * `MAX78000_SDK/Examples/MAX78000/Hello_World/` compiled with success. This will be my reference point project to play with pyOCD and GDB.
+  * Added [MAX78000_SDK](https://github.com/MaximIntegratedAI/MAX78000_SDK/) as git submodule to this project.
 * [ ] Find a way to use pyOCD  to flash the MCU/Board.
   * MAX78000FTHR seems to have onboard DAPLink probe [daplink] with ARM Cortex-M4F Target attached.
-  * pyOCD does not recognise Board ID - may indicate problems with flashing.
+  * pyOCD upstream (using `0.30.4.dev38+dirty`) does not recognise Board ID - debug and flash on generic `cortex_m` does not work out of the box.
   * CMSIS Pack Manager does not contain MAX78000 MCU.
 * [ ] Create Zephyr External Application code (using west [west] workspace on this repo).
 * [ ] Create Zephyr SOC configuration for MAX78000 using DTS.
@@ -89,7 +93,7 @@ In theory pyOCD can Debug Target as generic ARM Cortex-M MCU. However Board ID i
 0005422:INFO:gdbserver:Client connected to port 3333!
 ```
 
-On the GDB side:
+On the GDB side no debug or even halt possible:
 
 ```
 (venv37zephyr) arm-none-eabi-gdb
@@ -110,7 +114,7 @@ Ignoring packet error, continuing...
 Ignoring packet error, continuing...
 ```
 
-pyOCD upstream does not seem to have support for MAX78000 yet even with CMSIS Pack Manager [cpm]:
+pyOCD upstream does not seem to have support for MAX78000 yet even with CMSIS Pack Manager [cpm], no flashing possible:
 
 ```
 (venv37zephyr) pyocd pack update
@@ -144,6 +148,15 @@ pyOCD upstream does not seem to have support for MAX78000 yet even with CMSIS Pa
   S32K146MAxxxLLx   Keil     S32_SDK_DFP   1.3.0     False
   S32K146MAxxxLQx   Keil     S32_SDK_DFP   1.3.0     False
   S32K146MAxxxMHx   Keil     S32_SDK_DFP   1.3.0     False
+
+(venv37zephyr) pyocd flash build/max78000.elf
+0000719:WARNING:mbed_board:Board ID 0444 is not recognized, using generic cortex_m target.
+0000720:WARNING:board:Generic 'cortex_m' target type is selected by default; is this intentional? You will be able to debug most devices, but not program  flash. To set the target type use the '--target' argument or 'target_override' option. Use 'pyocd list --targets' to see available targets types.
+0000778:WARNING:pyusb_backend:USB Kernel Driver Detach Failed ([None] b'Unknown error'). Attached driver may interfere with pyOCD operations.
+0000957:WARNING:file_programmer:Failed to add data chunk: no memory region defined for address 0x10000000
+0000957:WARNING:file_programmer:Failed to add data chunk: no memory region defined for address 0x100088c8
+0000957:WARNING:file_programmer:Failed to add data chunk: no memory region defined for address 0x1000928c
+0000958:INFO:loader:Erased 0 bytes (0 sectors), programmed 0 bytes (0 pages), skipped 0 bytes (0 pages) at 0.00 kB/s
 ```
 
 
@@ -159,6 +172,9 @@ pyOCD upstream does not seem to have support for MAX78000 yet even with CMSIS Pa
 * [daplink] https://github.com/ARMmbed/DAPLink
 * [cpm] https://github.com/pyocd/cmsis-pack-manager
 * [max_appnote7417] https://www.maximintegrated.com/en/design/technical-documents/app-notes/7/7417.html
+* https://github.com/MaximIntegratedAI
+* https://github.com/MaximIntegratedAI/MAX78000_SDK
+
 
 
 ---
