@@ -2,7 +2,8 @@ app-max78000fthr-blinky:
   description: Zephyr based Blinky application for MAX78000FTHR AI DevKit.
   name: app-max78000fthr-blinky
 common:
-  tags: maxim max78000 ai
-tests:
-  platform_allow: max78000fthr
+  tags: LED gpio maxim max78000 ai
+  filter: dt_enabled_alias_with_parent_compat("led0", "gpio-leds")
+  depends_on: gpio
+  harness: led
 
