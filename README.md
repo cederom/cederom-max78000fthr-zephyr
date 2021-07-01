@@ -1,5 +1,7 @@
 # ZEPHYR RTOS ON MAX78000FTHR
 
+**NOTE: Project is on hold, can be developer further when Maxim expresses interest in cooperation on its development :-)**
+
 <p align="center" width="100%"><img src="gfx/cederom-max78000fthr-zephyr.jpg" width="50%"></p>
 
 This project is an experimental Open-Source platform independent port of ZEPHYR RTOS [zephyr] to MAX78000's [max78k] MAX78000FTHR AI Development Kit [max78kfthr] that consists of ARM Cortex-M4F (100MHz) and RISC-V (60MHz) co-processor with Hardware Neural Networks capability as part of the Elektor Magazine [elektor] and Maxim AI Design Contest. Porting Zephyr, my favourite RTOS, opens up whole world of possibilities for this kind of AI MCUs and Boards. Development is done on FreeBSD Unix [freebsd] therefore full Open-Source compatibility is verified, no vendor specific parts shall be used (i.e. Windows-only Maxim's Micros SDK).
