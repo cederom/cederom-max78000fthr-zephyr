@@ -1,6 +1,6 @@
 # ZEPHYR RTOS ON MAX78000FTHR
 
-**NOTE: Project is on hold, can be developer further when Maxim expresses interest in cooperation on its development :-)**
+**NOTE: This project is cancelled, no interest from Maxim in cooperation on its development. Feel free to use as a base for your own research. I have switched to NuttX RTOS :-)**
 
 <p align="center" width="100%"><img src="gfx/cederom-max78000fthr-zephyr.jpg" width="50%"></p>
 
